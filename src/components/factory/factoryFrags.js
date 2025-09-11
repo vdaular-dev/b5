@@ -102,6 +102,15 @@ const TabSection = ({
   const handleRename = useCallback(() => {
     setRenaming(true)
     blockNameRef.current.focus()
+
+    // Position cursor at the end of the text
+    const range = document.createRange()
+    const selection = window.getSelection()
+    range.selectNodeContents(blockNameRef.current)
+    range.collapse(false) // false means collapse to end
+    selection.removeAllRanges()
+    selection.addRange(range)
+
     blockNameRef.current.addEventListener('blur', function _finishRenaming(e) {
       // Changed from document.addEventListener('mousedown')
       // if (blockNameRef.current !== e.target) {

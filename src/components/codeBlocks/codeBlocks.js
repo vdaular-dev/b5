@@ -421,10 +421,14 @@ export default class CodeBlocks extends Component {
   }
 
   _findBlock(target) {
+    if (!target) return false
+
     // Find the blockFill target
     let depth = 0
     while (!target.classList.contains('blockFill') && depth < 5) {
       target = target.parentElement
+      if (!target) return false // Check if parentElement is null
+
       depth++ // Avoid infinite search
     }
     if (!target.classList.contains('blockFill')) return false
